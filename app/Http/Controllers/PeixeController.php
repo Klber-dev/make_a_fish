@@ -32,31 +32,34 @@ class PeixeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Peixe $peixe)
+    public function show($id)
     {
-        return $peixe;
+        return response()->json(Peixe::findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Peixe $peixe)
+    public function update(Request $request, $id)
     {
-            $dados = $request->validate([
+        $peixe = Peixe::findOrFail($id);
+
+        $dados = $request->validate([
             'nome' => 'required|string|max:255',
             'peso' => 'required|numeric|min:0',
             'preco' => 'required|numeric|min:0'
         ]);
 
         $peixe->update($dados);
-        return $peixe;
+        return response()->json($peixe);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Peixe $peixe)
+    public function destroy($id)
     {
+        $peixe = Peixe::findOrFail($id);
         $peixe->delete();
         return response()->noContent();
     }
