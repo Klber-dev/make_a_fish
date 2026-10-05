@@ -12,7 +12,7 @@ class PeixeController extends Controller
      */
     public function index()
     {
-        return Peixe:all();
+        return Peixe::all();
     }
 
     /**
